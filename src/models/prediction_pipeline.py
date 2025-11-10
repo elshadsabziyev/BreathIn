@@ -106,8 +106,8 @@ class BreathInPipeline:
             city_name, country_code, days_back=7
         )
 
-        # Step 2: Level 1 - Clean data
-        clean_data = self.preprocessor.transform(historical_data)
+        # Step 2: Level 1 - Clean data (fit_transform for new data)
+        clean_data = self.preprocessor.fit_transform(historical_data)
 
         # Step 3: Level 2 - Forecast each pollutant
         pollutant_forecasts = {}
