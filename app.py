@@ -290,13 +290,26 @@ class BreathInApp:
 
 def main() -> None:
     """Main entry point for the application."""
+    import argparse
+    import os
+    
+    # Parse command line arguments
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--host", default="127.0.0.1", help="Host to bind to")
+    parser.add_argument("--port", type=int, default=None, help="Port to bind to")
+    args = parser.parse_args()
+    
+    # Get port from args, environment variable, or default
+    port = args.port or int(os.getenv("PORT", "8080"))
+    
     breath_app = BreathInApp()
     breath_app.create_ui()
 
     # Run the app
     ui.run(
         title="BreathIn - Air Quality Prediction",
-        port=8080,
+        host=args.host,
+        port=port,
         reload=False,
         show=False,
     )
